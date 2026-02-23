@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="glass-card text-center">
+
+<h3>Your Score</h3>
+<h1 class="display-4">{{ score }} / {{ total }}</h1>
+
+<div class="progress mb-4" style="height: 25px;">
+  <div class="progress-bar bg-success"
+       style="width: {{ (score/total)*100 }}%">
+    {{ ((score/total)*100)|round(0) }}%
+  </div>
+</div>
+
+<button onclick="toggleAnswer()" class="btn btn-custom">
+    View Answer Sheet
+</button>
+
+<div id="answers" class="mt-4" style="display:none; text-align:left;">
+{% for q in questions %}
+<div class="glass-card mb-3">
+    <p><b>{{ loop.index }}. {{ q.question }}</b></p>
+    <p>Your Answer:
+        <span class="{% if user_answers[q.id] == q.correct_answer %}text-success{% else %}text-danger{% endif %}">
+            {{ user_answers[q.id] }}
+        </span>
+    </p>
+    <p>Correct Answer:
+        <span class="text-success">{{ q.correct_answer }}</span>
+    </p>
+</div>
+{% endfor %}
+</div>
+
+</div>
+
+<script>
+function toggleAnswer(){
+    var x = document.getElementById("answers");
+    x.style.display = x.style.display === "none" ? "block" : "none";
+}
+</script>
+
+{% endblock %}

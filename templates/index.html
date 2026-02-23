@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Available Mock Tests</h2>
+
+<div class="row">
+{% for test in tests %}
+<div class="col-md-4">
+    <div class="glass-card mb-4">
+        <h4>{{ test.title }}</h4>
+        <p class="text-light">{{ test.category }}</p>
+
+        <a href="/mocktest/{{ test.id }}" class="btn btn-custom w-100 mb-2">
+            Start Test
+        </a>
+
+        <a href="/leaderboard/{{ test.id }}" class="btn btn-outline-light w-100">
+            Leaderboard
+        </a>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}
