@@ -190,9 +190,14 @@ def extract_questions(file_path, test_id):
 def leaderboard(test_id):
     results = Result.query.filter_by(mock_test_id=test_id)\
                 .order_by(Result.score.desc()).all()
-
     return render_template("leaderboard.html", results=results)
 
+
+# ===== TEMPORARY ROUTE TO CREATE TABLES =====
+@app.route("/create_tables")
+def create_tables():
+    db.create_all()
+    return "Tables Created Successfully!"
 # ================= MAIN =================
 if __name__ == "__main__":
     if not os.path.exists("uploads"):
@@ -200,5 +205,6 @@ if __name__ == "__main__":
 
     with app.app_context():
         db.create_all()
+
 
     app.run(debug=True)
